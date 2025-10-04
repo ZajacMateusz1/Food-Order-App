@@ -19,9 +19,17 @@ export default function MealCard({
   image,
 }: MealCardProps) {
   return (
-    <Card sx={{ width: "325px", textAlign: "center" }}>
+    <Card
+      sx={{
+        width: { xs: "300px", md: "325px" },
+        height: "100%",
+        textAlign: "center",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <CardMedia component="img" src={image} sx={{ height: 180 }}></CardMedia>
-      <CardContent>
+      <CardContent sx={{ flexGrow: 1 }}>
         <Typography gutterBottom variant="h5" sx={{ fontWeight: 500 }}>
           {name}
         </Typography>
@@ -34,6 +42,7 @@ export default function MealCard({
         <Button
           variant="contained"
           sx={{
+            mt: "auto",
             backgroundColor: "secondary.main",
             color: "secondary.contrastText",
           }}
