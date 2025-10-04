@@ -15,6 +15,10 @@ const theme = responsiveFontSizes(
         main: "#FFE45E",
         contrastText: "#333",
       },
+      secondary: {
+        main: "#55A630",
+        contrastText: "#fff",
+      },
       background: {
         default: "#FAFAFA",
       },
@@ -23,6 +27,14 @@ const theme = responsiveFontSizes(
       h1: {
         fontWeight: "700",
         fontSize: "1.7rem",
+      },
+      h5: {
+        fontWeight: "500",
+        fontSize: "1.4rem",
+      },
+      subtitle1: {
+        fontWeight: "500",
+        fontSize: "1.1rem",
       },
     },
   })
