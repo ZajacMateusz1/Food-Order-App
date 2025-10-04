@@ -1,7 +1,7 @@
-import { Box, Typography } from "@mui/material";
+import { Alert, Typography } from "@mui/material";
 export default function ErrorInfo({ errorText }: { errorText: string }) {
   return (
-    <Box>
+    <Alert severity="error">
       <Typography
         sx={{
           fontSize: { xs: "2rem", lg: "2.5rem" },
@@ -11,6 +11,6 @@ export default function ErrorInfo({ errorText }: { errorText: string }) {
       >
         {errorText}
       </Typography>
-    </Box>
+    </Alert>
   );
 }
