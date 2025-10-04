@@ -7,7 +7,7 @@ import { Box, Typography, Grid } from "@mui/material";
 export default function Menu() {
   const { meals, error, isLoading } = use(MealsContext);
   return (
-    <Box component="main">
+    <Box component="main" sx={{ minHeight: "100vh" }}>
       <Typography
         variant="h1"
         sx={{
