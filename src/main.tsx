@@ -26,7 +26,6 @@ const theme = responsiveFontSizes(
     typography: {
       h1: {
         fontWeight: "700",
-        fontSize: "1.7rem",
       },
       h5: {
         fontWeight: "500",

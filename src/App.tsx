@@ -1,14 +1,15 @@
+import MealContextProvider from "../store/MealContextProvider.tsx";
 import Header from "./components/Header.tsx";
+import Menu from "./components/Menu.tsx";
 import { Container } from "@mui/material";
-import Card from "./components/MealCard.tsx";
 function App() {
   return (
-    <>
+    <MealContextProvider>
       <Header></Header>
-      <Container sx={{ p: 0 }}>
-        <Card />
+      <Container>
+        <Menu />
       </Container>
-    </>
+    </MealContextProvider>
   );
 }
 

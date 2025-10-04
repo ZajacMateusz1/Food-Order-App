@@ -1,4 +1,4 @@
-import { Meal } from "./types/types.ts";
+import type { Meal } from "./types/types.ts";
 export async function fetchAllMeals() {
   const response = await fetch(
     "https://68deea12898434f4135657cc.mockapi.io/foodorderapi/v1/meals"

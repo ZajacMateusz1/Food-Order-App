@@ -12,6 +12,7 @@ export default function Header() {
         backgroundColor: "primary.main",
         color: "primary.contrastText",
         p: 1,
+        zIndex: 1,
       }}
     >
       <Container
@@ -22,7 +23,17 @@ export default function Header() {
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Typography variant="h1" sx={{ fontSize: { sm: "2rem" } }}>
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: {
+                xs: "1.2rem",
+                sm: "2rem",
+                md: "2.5rem",
+                xl: "3.5rem",
+              },
+            }}
+          >
             Food Order App
           </Typography>
           <Box
