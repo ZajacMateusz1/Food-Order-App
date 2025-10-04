@@ -1,6 +1,7 @@
 import { use } from "react";
 import MealsContext from "../../store/meals-context.tsx";
 import MealCard from "./MealCard.tsx";
+import Loading from "./Loading.tsx";
 import { Box, Typography, Grid } from "@mui/material";
 export default function Menu() {
   const { meals, error, isLoading } = use(MealsContext);
@@ -16,7 +17,7 @@ export default function Menu() {
         Menu
       </Typography>
       {error && <div>{error}</div>}
-      {isLoading && <div>Loading...</div>}
+      {isLoading && <Loading />}
       <Grid
         container
         columns={{ xs: 1, sm: 1 }}
