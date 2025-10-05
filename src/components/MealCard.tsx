@@ -43,8 +43,8 @@ export default function MealCard({
           variant="contained"
           sx={{
             mt: "auto",
-            backgroundColor: "secondary.main",
-            color: "secondary.contrastText",
+            backgroundColor: "primary.main",
+            color: "primary.contrastText",
           }}
         >
           Add to Cart

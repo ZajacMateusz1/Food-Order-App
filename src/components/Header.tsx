@@ -9,8 +9,8 @@ export default function Header() {
         position: "sticky",
         left: 0,
         top: 0,
-        backgroundColor: "primary.main",
-        color: "primary.contrastText",
+        backgroundColor: "secondary.main",
+        color: "secondary.contrastText",
         p: 1,
         zIndex: 1,
       }}
@@ -49,7 +49,7 @@ export default function Header() {
             <ShoppingCartIcon
               sx={{
                 fontSize: { xs: "2rem", sm: "2.5rem" },
-                color: "primary.contrastText",
+                color: "secondary.contrastText",
               }}
             />
           }
