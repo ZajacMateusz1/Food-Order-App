@@ -6,8 +6,8 @@ export default function Footer() {
     <Box
       component="footer"
       sx={{
-        backgroundColor: "primary.contrastText",
-        color: "secondary.contrastText",
+        backgroundColor: "secondary.contrastText",
+        color: "primary.contrastText",
         p: 2,
         mt: { xs: "1rem", md: "2rem" },
       }}
@@ -19,7 +19,7 @@ export default function Footer() {
           target="_blank"
         >
           <GitHubIcon
-            sx={{ color: "secondary.contrastText", fontSize: "2rem" }}
+            sx={{ color: "primary.contrastText", fontSize: "2rem" }}
           />
         </IconButton>
         <IconButton
@@ -28,7 +28,7 @@ export default function Footer() {
           target="_blank"
         >
           <LinkedInIcon
-            sx={{ color: "secondary.contrastText", fontSize: "2rem" }}
+            sx={{ color: "primary.contrastText", fontSize: "2rem" }}
           />
         </IconButton>
       </Container>
