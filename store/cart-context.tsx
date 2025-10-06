@@ -1,9 +1,9 @@
 import { createContext } from "react";
-import type { Meal } from "../types/types.tsx";
+import type { CartMeal } from "../types/types.ts";
 export interface CartContextInterface {
-  cart: Meal[];
+  cartState: CartMeal[];
 }
 const CartContext = createContext<CartContextInterface>({
-  cart: [],
+  cartState: [],
 });
 export default CartContext;
