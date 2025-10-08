@@ -5,6 +5,7 @@ export interface Meal {
   description: string;
   image: string;
 }
-export interface CartMeal extends Meal {
+export interface CartMeal {
+  id: string;
   quantity: number;
 }

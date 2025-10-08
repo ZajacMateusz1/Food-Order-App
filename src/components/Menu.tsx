@@ -1,11 +1,12 @@
-import { use } from "react";
-import MealsContext from "../../store/meals-context.tsx";
+import useFetch from "../hooks/useFetch.ts";
+import { fetchAllMeals } from "../../http.ts";
 import MealCard from "./MealCard.tsx";
 import Loading from "./Loading.tsx";
 import ErrorInfo from "./ErrorInfo.tsx";
+import type { Meal } from "../../types/types.ts";
 import { Box, Typography, Grid } from "@mui/material";
 export default function Menu() {
-  const { meals, error, isLoading } = use(MealsContext);
+  const { data: meals, error, isLoading } = useFetch<Meal[]>(fetchAllMeals, []);
   return (
     <Box component="main" sx={{ minHeight: "100vh" }}>
       <Typography
@@ -33,6 +34,7 @@ export default function Menu() {
               spacing={{ xs: 1, md: 2, lg: 3 }}
             >
               <MealCard
+                id={meal.id}
                 name={meal.name}
                 price={meal.price}
                 description={meal.description}

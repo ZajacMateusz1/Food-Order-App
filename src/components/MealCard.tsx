@@ -1,3 +1,6 @@
+import { use } from "react";
+import CartContext from "../../store/cart-context.tsx";
+import type { Meal } from "../../types/types.ts";
 import {
   Card,
   CardMedia,
@@ -6,18 +9,14 @@ import {
   CardActions,
   Button,
 } from "@mui/material";
-interface MealCardProps {
-  name: string;
-  price: number;
-  description: string;
-  image: string;
-}
 export default function MealCard({
+  id,
   name,
   price,
   description,
   image,
-}: MealCardProps) {
+}: Meal) {
+  const { handleAddToCart } = use(CartContext);
   return (
     <Card
       sx={{
@@ -40,6 +39,7 @@ export default function MealCard({
       </CardContent>
       <CardActions sx={{ justifyContent: "center", mb: "0.5rem" }}>
         <Button
+          onClick={() => handleAddToCart(id)}
           variant="contained"
           sx={{
             mt: "auto",

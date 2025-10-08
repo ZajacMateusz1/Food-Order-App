@@ -1,4 +1,4 @@
-import MealContextProvider from "../store/MealContextProvider.tsx";
+import CartContextProvider from "../store/CartContextProvider.tsx";
 import Header from "./components/Header.tsx";
 import Menu from "./components/Menu.tsx";
 import Footer from "./components/Footer.tsx";
@@ -6,12 +6,12 @@ import { Container } from "@mui/material";
 function App() {
   return (
     <>
-      <MealContextProvider>
+      <CartContextProvider>
         <Header></Header>
         <Container>
           <Menu />
         </Container>
-      </MealContextProvider>
+      </CartContextProvider>
       <Footer />
     </>
   );
