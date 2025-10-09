@@ -1,3 +1,4 @@
+import type { StepType } from "./OrderModal.tsx";
 import {
   DialogTitle,
   DialogContent,
@@ -6,9 +7,17 @@ import {
   Button,
 } from "@mui/material";
 interface ThankYouProps {
+  handleChangeStep: (nextStatus: StepType) => void;
   handleCloseModal: () => void;
 }
-export default function ThankYou({ handleCloseModal }: ThankYouProps) {
+export default function ThankYou({
+  handleChangeStep,
+  handleCloseModal,
+}: ThankYouProps) {
+  function handleClose() {
+    handleCloseModal();
+    handleChangeStep("details");
+  }
   return (
     <>
       <DialogTitle>Thank you for your order!</DialogTitle>
@@ -18,7 +27,7 @@ export default function ThankYou({ handleCloseModal }: ThankYouProps) {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleCloseModal}>Close</Button>
+        <Button onClick={handleClose}>Close</Button>
       </DialogActions>
     </>
   );

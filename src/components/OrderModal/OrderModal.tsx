@@ -21,6 +21,7 @@ export default function OrderModal() {
     handleAddToCart,
     handleRemoveFromCart,
     handleDecrement,
+    handleReset,
     modalStatus,
     handleCloseModal,
   } = use(CartContext);
@@ -59,10 +60,16 @@ export default function OrderModal() {
         <OrderForm
           handleChangeStep={handleChangeStep}
           totalPrice={totalPrice}
+          handleReset={handleReset}
           handleCloseModal={handleCloseModal}
         />
       )}
-      {step === "thankYou" && <ThankYou handleCloseModal={handleCloseModal} />}
+      {step === "thankYou" && (
+        <ThankYou
+          handleChangeStep={handleChangeStep}
+          handleCloseModal={handleCloseModal}
+        />
+      )}
     </Dialog>
   );
 }

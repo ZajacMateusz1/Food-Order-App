@@ -12,14 +12,17 @@ interface OrderFormProps {
   handleChangeStep: (nextStatus: StepType) => void;
   totalPrice: string;
   handleCloseModal: () => void;
+  handleReset: () => void;
 }
 export default function OrderForm({
   handleChangeStep,
   totalPrice,
   handleCloseModal,
+  handleReset,
 }: OrderFormProps) {
   function handleSubmit() {
     handleChangeStep("thankYou");
+    handleReset();
   }
   return (
     <>
