@@ -16,8 +16,14 @@ export default function OrderModal() {
   function handleChangeStep(newStatus: StepType) {
     setStep(newStatus);
   }
-  const { cartState, handleAddToCart, handleRemoveFromCart, handleDecrement } =
-    use(CartContext);
+  const {
+    cartState,
+    handleAddToCart,
+    handleRemoveFromCart,
+    handleDecrement,
+    modalStatus,
+    handleCloseModal,
+  } = use(CartContext);
   const {
     data: meals,
     error,
@@ -35,7 +41,7 @@ export default function OrderModal() {
     return price.toFixed(2);
   }, [meals]);
   return (
-    <Dialog open={true} fullWidth maxWidth="sm">
+    <Dialog open={modalStatus} fullWidth maxWidth="sm">
       {step === "details" && (
         <CartDetails
           handleChangeStep={handleChangeStep}
@@ -46,15 +52,17 @@ export default function OrderModal() {
           handleAddToCart={handleAddToCart}
           handleRemoveFromCart={handleRemoveFromCart}
           handleDecrement={handleDecrement}
+          handleCloseModal={handleCloseModal}
         />
       )}
       {step === "form" && (
         <OrderForm
           handleChangeStep={handleChangeStep}
           totalPrice={totalPrice}
+          handleCloseModal={handleCloseModal}
         />
       )}
-      {step === "thankYou" && <ThankYou />}
+      {step === "thankYou" && <ThankYou handleCloseModal={handleCloseModal} />}
     </Dialog>
   );
 }

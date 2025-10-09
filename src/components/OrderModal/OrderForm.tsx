@@ -11,16 +11,15 @@ import {
 interface OrderFormProps {
   handleChangeStep: (nextStatus: StepType) => void;
   totalPrice: string;
+  handleCloseModal: () => void;
 }
 export default function OrderForm({
   handleChangeStep,
   totalPrice,
+  handleCloseModal,
 }: OrderFormProps) {
   function handleSubmit() {
     handleChangeStep("thankYou");
-  }
-  function handleBackToCartDetails() {
-    handleChangeStep("details");
   }
   return (
     <>
@@ -84,8 +83,8 @@ export default function OrderForm({
         </form>
       </DialogContent>
       <DialogActions>
-        <Button>Cancel</Button>
-        <Button onClick={handleBackToCartDetails}>Back</Button>
+        <Button onClick={handleCloseModal}>Cancel</Button>
+        <Button onClick={() => handleChangeStep("details")}>Back</Button>
         <Button variant="contained" type="submit" form="order-form">
           Submit
         </Button>

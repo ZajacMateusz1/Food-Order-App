@@ -26,6 +26,7 @@ interface CartDetailsProps {
   handleAddToCart: (id: string) => void;
   handleRemoveFromCart: (id: string) => void;
   handleDecrement: (id: string) => void;
+  handleCloseModal: () => void;
 }
 export default function CartDetails({
   handleChangeStep,
@@ -36,6 +37,7 @@ export default function CartDetails({
   handleAddToCart,
   handleRemoveFromCart,
   handleDecrement,
+  handleCloseModal,
 }: CartDetailsProps) {
   if (error) {
     return <ErrorInfo errorText={error} />;
@@ -106,7 +108,7 @@ export default function CartDetails({
         </List>
       </DialogContent>
       <DialogActions>
-        <Button>Cancel</Button>
+        <Button onClick={handleCloseModal}>Cancel</Button>
         <Button
           onClick={() => handleChangeStep("form")}
           variant="contained"

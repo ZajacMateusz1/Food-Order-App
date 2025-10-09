@@ -5,7 +5,10 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
-export default function ThankYou() {
+interface ThankYouProps {
+  handleCloseModal: () => void;
+}
+export default function ThankYou({ handleCloseModal }: ThankYouProps) {
   return (
     <>
       <DialogTitle>Thank you for your order!</DialogTitle>
@@ -15,7 +18,7 @@ export default function ThankYou() {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button>Close</Button>
+        <Button onClick={handleCloseModal}>Close</Button>
       </DialogActions>
     </>
   );
