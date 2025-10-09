@@ -1,7 +1,14 @@
+import { use } from "react";
+import CartContext from "../../store/cart-context";
 import logo from "../assets/logo.png";
-import { Box, Typography, IconButton, Container } from "@mui/material";
+import { Box, Typography, IconButton, Container, Badge } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 export default function Header() {
+  const { cartState, handleShowModal } = use(CartContext);
+  const itemsInCartQuantity = cartState.reduce(
+    (acc, cartItem) => acc + cartItem.quantity,
+    0
+  );
   return (
     <Box
       component="header"
@@ -44,15 +51,15 @@ export default function Header() {
           ></Box>
         </Box>
 
-        <IconButton>
-          {
+        <IconButton onClick={handleShowModal}>
+          <Badge badgeContent={itemsInCartQuantity} color="primary">
             <ShoppingCartIcon
               sx={{
                 fontSize: { xs: "2rem", sm: "2.5rem" },
                 color: "secondary.contrastText",
               }}
             />
-          }
+          </Badge>
         </IconButton>
       </Container>
     </Box>
