@@ -1,3 +1,13 @@
+import { use } from "react";
+import CartContext from "../../../store/cart-context.tsx";
+import useFetchPromiseAll from "../../hooks/useFetchPromiseAll.ts";
+import { fetchInCart } from "../../../http.ts";
+import Loading from "../Loading.tsx";
+import ErrorInfo from "../ErrorInfo.tsx";
+import type {
+  CartMeal,
+  MealToShowInCartDetails,
+} from "../../../types/types.ts";
 import type { StepType } from "./OrderModal.tsx";
 import {
   DialogTitle,
@@ -5,18 +15,106 @@ import {
   DialogContentText,
   DialogActions,
   Button,
+  List,
+  ListItem,
+  ListItemText,
+  IconButton,
+  Stack,
 } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import DeleteIcon from "@mui/icons-material/Delete";
 interface CartDetailsProps {
   handleChangeStep: (nextStatus: StepType) => void;
 }
 export default function CartDetails({ handleChangeStep }: CartDetailsProps) {
+  const { cartState, handleAddToCart, handleRemoveFromCart, handleDecrement } =
+    use(CartContext);
+  const {
+    data: meals,
+    error,
+    isLoading,
+  } = useFetchPromiseAll<MealToShowInCartDetails[], CartMeal[]>(
+    fetchInCart,
+    cartState,
+    []
+  );
+  const totalPrice: number = meals.reduce(
+    (acc, meal) => Number((acc + meal.price * meal.quantity).toFixed(2)),
+    0
+  );
+  if (error) {
+    return <ErrorInfo errorText={error} />;
+  }
+  if (isLoading) return <Loading />;
   return (
     <>
       <DialogTitle>Your Cart</DialogTitle>
+      <DialogContent>
+        <DialogContentText sx={{ color: "secondary.contrastText" }}>
+          Total amount {totalPrice}$
+        </DialogContentText>
+        <List>
+          {meals.map((meal) => {
+            return (
+              <ListItem
+                key={meal.id}
+                secondaryAction={
+                  <Stack direction="row" spacing={0.5}>
+                    <IconButton
+                      onClick={
+                        meal.quantity === 1
+                          ? () => handleRemoveFromCart(meal.id)
+                          : () => handleDecrement(meal.id)
+                      }
+                      edge="end"
+                    >
+                      {meal.quantity === 1 ? (
+                        <DeleteIcon
+                          sx={{
+                            fontSize: "1rem",
+                            color: "secondary.contrastText",
+                          }}
+                        />
+                      ) : (
+                        <RemoveIcon
+                          sx={{
+                            fontSize: "1rem",
+                            color: "secondary.contrastText",
+                          }}
+                        />
+                      )}
+                    </IconButton>
+                    <IconButton
+                      onClick={() => handleAddToCart(meal.id)}
+                      edge="end"
+                    >
+                      <AddIcon
+                        sx={{
+                          fontSize: "1rem",
+                          color: "secondary.contrastText",
+                        }}
+                      />
+                    </IconButton>
+                  </Stack>
+                }
+                sx={{ fontSize: { xs: "0.7rem" } }}
+              >
+                <ListItemText
+                  primary={meal.name}
+                  secondary={`${(meal.price * meal.quantity).toFixed(2)}$ ${
+                    meal.quantity
+                  }x`}
+                ></ListItemText>
+              </ListItem>
+            );
+          })}
+        </List>
+      </DialogContent>
       <DialogActions>
         <Button>Cancel</Button>
         <Button onClick={() => handleChangeStep("form")} variant="contained">
-          Proceed to Checkout
+          Checkout
         </Button>
       </DialogActions>
     </>

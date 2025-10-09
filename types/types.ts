@@ -9,3 +9,4 @@ export interface CartMeal {
   id: string;
   quantity: number;
 }
+export interface MealToShowInCartDetails extends Meal, CartMeal {}
