@@ -1,13 +1,6 @@
-import { use } from "react";
-import CartContext from "../../../store/cart-context.tsx";
-import useFetchPromiseAll from "../../hooks/useFetchPromiseAll.ts";
-import { fetchInCart } from "../../../http.ts";
 import Loading from "../Loading.tsx";
 import ErrorInfo from "../ErrorInfo.tsx";
-import type {
-  CartMeal,
-  MealToShowInCartDetails,
-} from "../../../types/types.ts";
+import type { MealToShowInCartDetails } from "../../../types/types.ts";
 import type { StepType } from "./OrderModal.tsx";
 import {
   DialogTitle,
@@ -26,23 +19,26 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
 interface CartDetailsProps {
   handleChangeStep: (nextStatus: StepType) => void;
+  meals: MealToShowInCartDetails[];
+  error: string;
+  isLoading: boolean;
+  totalPrice: string;
+  handleAddToCart: (id: string) => void;
+  handleRemoveFromCart: (id: string) => void;
+  handleDecrement: (id: string) => void;
+  handleCloseModal: () => void;
 }
-export default function CartDetails({ handleChangeStep }: CartDetailsProps) {
-  const { cartState, handleAddToCart, handleRemoveFromCart, handleDecrement } =
-    use(CartContext);
-  const {
-    data: meals,
-    error,
-    isLoading,
-  } = useFetchPromiseAll<MealToShowInCartDetails[], CartMeal[]>(
-    fetchInCart,
-    cartState,
-    []
-  );
-  const totalPrice: number = meals.reduce(
-    (acc, meal) => Number((acc + meal.price * meal.quantity).toFixed(2)),
-    0
-  );
+export default function CartDetails({
+  handleChangeStep,
+  meals,
+  error,
+  isLoading,
+  totalPrice,
+  handleAddToCart,
+  handleRemoveFromCart,
+  handleDecrement,
+  handleCloseModal,
+}: CartDetailsProps) {
   if (error) {
     return <ErrorInfo errorText={error} />;
   }
@@ -112,8 +108,12 @@ export default function CartDetails({ handleChangeStep }: CartDetailsProps) {
         </List>
       </DialogContent>
       <DialogActions>
-        <Button>Cancel</Button>
-        <Button onClick={() => handleChangeStep("form")} variant="contained">
+        <Button onClick={handleCloseModal}>Cancel</Button>
+        <Button
+          onClick={() => handleChangeStep("form")}
+          variant="contained"
+          disabled={meals.length === 0}
+        >
           Checkout
         </Button>
       </DialogActions>

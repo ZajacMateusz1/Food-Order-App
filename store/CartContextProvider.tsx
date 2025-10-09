@@ -1,4 +1,4 @@
-import { useReducer, type ReactNode } from "react";
+import { useReducer, useState, type ReactNode } from "react";
 import CartContext from "./cart-context.tsx";
 import type { CartContextInterface } from "./cart-context.tsx";
 import { cartReducer } from "./cartReducer.ts";
@@ -27,11 +27,21 @@ export default function CartContextProvider({
       payload: id,
     });
   }
+  const [modalStatus, setmodalStatus] = useState<boolean>(false);
+  function handleShowModal() {
+    setmodalStatus(true);
+  }
+  function handleCloseModal() {
+    setmodalStatus(false);
+  }
   const cartCtx: CartContextInterface = {
     cartState,
     handleAddToCart,
     handleRemoveFromCart,
     handleDecrement,
+    modalStatus,
+    handleShowModal,
+    handleCloseModal,
   };
   return <CartContext value={cartCtx}>{children}</CartContext>;
 }
