@@ -20,30 +20,32 @@ export default function Menu() {
       </Typography>
       {error && <ErrorInfo errorText={error} />}
       {isLoading && <Loading />}
-      <Grid
-        container
-        columns={{ xs: 1, sm: 1 }}
-        spacing={{ xs: 2, md: 6 }}
-        justifyContent="center"
-      >
-        {meals.map((meal) => {
-          return (
-            <Grid
-              key={meal.id}
-              columns={{ xs: 1, md: 2, lg: 3 }}
-              spacing={{ xs: 1, md: 2, lg: 3 }}
-            >
-              <MealCard
-                id={meal.id}
-                name={meal.name}
-                price={meal.price}
-                description={meal.description}
-                image={meal.image}
-              />
-            </Grid>
-          );
-        })}
-      </Grid>
+      {!error && !isLoading && (
+        <Grid
+          container
+          columns={{ xs: 1, sm: 1 }}
+          spacing={{ xs: 2, md: 6 }}
+          justifyContent="center"
+        >
+          {meals.map((meal) => {
+            return (
+              <Grid
+                key={meal.id}
+                columns={{ xs: 1, md: 2, lg: 3 }}
+                spacing={{ xs: 1, md: 2, lg: 3 }}
+              >
+                <MealCard
+                  id={meal.id}
+                  name={meal.name}
+                  price={meal.price}
+                  description={meal.description}
+                  image={meal.image}
+                />
+              </Grid>
+            );
+          })}
+        </Grid>
+      )}
     </Box>
   );
 }

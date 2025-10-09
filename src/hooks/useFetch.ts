@@ -4,7 +4,7 @@ export default function useFetch<T>(fetchFn: () => Promise<T>, startValue: T) {
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   useEffect(() => {
-    async function fetchMeals() {
+    async function fetchData() {
       setIsLoading(true);
       try {
         const fetchedData = await fetchFn();
@@ -18,7 +18,7 @@ export default function useFetch<T>(fetchFn: () => Promise<T>, startValue: T) {
       }
       setIsLoading(false);
     }
-    fetchMeals();
+    fetchData();
   }, [fetchFn]);
   return { data, error, isLoading };
 }
