@@ -10,17 +10,24 @@ import {
 } from "@mui/material";
 interface OrderFormProps {
   handleChangeStep: (nextStatus: StepType) => void;
+  totalPrice: string;
 }
-export default function OrderForm({ handleChangeStep }: OrderFormProps) {
+export default function OrderForm({
+  handleChangeStep,
+  totalPrice,
+}: OrderFormProps) {
   function handleSubmit() {
     handleChangeStep("thankYou");
+  }
+  function handleBackToCartDetails() {
+    handleChangeStep("details");
   }
   return (
     <>
       <DialogTitle>Checkout</DialogTitle>
       <DialogContent>
         <DialogContentText sx={{ color: "secondary.contrastText" }}>
-          Total amount 823$
+          Total amount {totalPrice}$
         </DialogContentText>
         <form onSubmit={handleSubmit} id="order-form">
           <TextField
@@ -78,8 +85,9 @@ export default function OrderForm({ handleChangeStep }: OrderFormProps) {
       </DialogContent>
       <DialogActions>
         <Button>Cancel</Button>
+        <Button onClick={handleBackToCartDetails}>Back</Button>
         <Button variant="contained" type="submit" form="order-form">
-          Submit Order
+          Submit
         </Button>
       </DialogActions>
     </>
