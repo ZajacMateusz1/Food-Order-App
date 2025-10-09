@@ -27,7 +27,6 @@ export function cartReducer(
         ...newState[itemIndex],
         quantity: newState[itemIndex].quantity + 1,
       };
-      console.log(newState);
       return newState;
     }
     case "REMOVE": {
@@ -41,7 +40,7 @@ export function cartReducer(
         ...newState[itemIndex],
         quantity: newState[itemIndex].quantity - 1,
       };
-      return state;
+      return newState;
     }
   }
 }
