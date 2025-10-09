@@ -1,5 +1,5 @@
 import type { CartMeal } from "../types/types.ts";
-type ReducerActionType = "ADD" | "REMOVE" | "DECREMENT";
+type ReducerActionType = "ADD" | "REMOVE" | "DECREMENT" | "RESET";
 export type ReducerAction = {
   type: ReducerActionType;
   payload: string;
@@ -42,5 +42,7 @@ export function cartReducer(
       };
       return newState;
     }
+    case "RESET":
+      return [];
   }
 }

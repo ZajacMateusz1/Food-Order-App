@@ -5,6 +5,7 @@ export interface CartContextInterface {
   handleAddToCart: (id: string) => void;
   handleRemoveFromCart: (id: string) => void;
   handleDecrement: (id: string) => void;
+  handleReset: () => void;
   modalStatus: boolean;
   handleShowModal: () => void;
   handleCloseModal: () => void;
@@ -14,6 +15,7 @@ const CartContext = createContext<CartContextInterface>({
   handleAddToCart: () => {},
   handleRemoveFromCart: () => {},
   handleDecrement: () => {},
+  handleReset: () => {},
   modalStatus: false,
   handleShowModal: () => {},
   handleCloseModal: () => {},

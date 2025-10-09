@@ -27,6 +27,12 @@ export default function CartContextProvider({
       payload: id,
     });
   }
+  function handleReset() {
+    cartDispatch({
+      type: "RESET",
+      payload: "",
+    });
+  }
   const [modalStatus, setmodalStatus] = useState<boolean>(false);
   function handleShowModal() {
     setmodalStatus(true);
@@ -39,6 +45,7 @@ export default function CartContextProvider({
     handleAddToCart,
     handleRemoveFromCart,
     handleDecrement,
+    handleReset,
     modalStatus,
     handleShowModal,
     handleCloseModal,
