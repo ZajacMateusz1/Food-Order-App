@@ -3,7 +3,7 @@ import CartContext from "../../../store/cart-context.tsx";
 import useFetchPromiseAll from "../../hooks/useFetchPromiseAll.ts";
 import { fetchInCart } from "../../../http.ts";
 import CartDetails from "./CartDetails.tsx";
-import OrderForm from "./OrderForm.tsx";
+import OrderFormState from "./OrderFormState.tsx";
 import ThankYou from "./ThankYou.tsx";
 import type {
   CartMeal,
@@ -57,7 +57,7 @@ export default function OrderModal() {
         />
       )}
       {step === "form" && (
-        <OrderForm
+        <OrderFormState
           handleChangeStep={handleChangeStep}
           totalPrice={totalPrice}
           handleReset={handleReset}
