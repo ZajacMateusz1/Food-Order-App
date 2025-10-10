@@ -56,8 +56,9 @@ export default function CartDetails({
               <ListItem
                 key={meal.id}
                 secondaryAction={
-                  <Stack direction="row" spacing={0.5}>
+                  <Stack direction="row" spacing={{ xs: 0, sm: 0, md: 0.5 }}>
                     <IconButton
+                      disabled={isLoading}
                       onClick={
                         meal.quantity === 1
                           ? () => handleRemoveFromCart(meal.id)

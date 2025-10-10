@@ -22,7 +22,10 @@ export default function useFetchPromiseAll<T, A>(
       }
       setIsLoading(false);
     }
-    fetchData();
+    const timeout = setTimeout(() => fetchData(), 300);
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [fetchFn, itemsToFetch]);
   return { data, error, isLoading };
 }
