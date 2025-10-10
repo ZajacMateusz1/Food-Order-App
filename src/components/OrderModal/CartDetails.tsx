@@ -12,10 +12,10 @@ import {
   ListItem,
   ListItemText,
   IconButton,
-  Stack,
+  TextField,
+  Typography,
+  Box,
 } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
 interface CartDetailsProps {
   handleChangeStep: (nextStatus: StepType) => void;
@@ -34,9 +34,7 @@ export default function CartDetails({
   error,
   isLoading,
   totalPrice,
-  handleAddToCart,
   handleRemoveFromCart,
-  handleDecrement,
   handleCloseModal,
 }: CartDetailsProps) {
   if (error) {
@@ -56,52 +54,51 @@ export default function CartDetails({
               <ListItem
                 key={meal.id}
                 secondaryAction={
-                  <Stack direction="row" spacing={{ xs: 0, sm: 0, md: 0.5 }}>
-                    <IconButton
-                      disabled={isLoading}
-                      onClick={
-                        meal.quantity === 1
-                          ? () => handleRemoveFromCart(meal.id)
-                          : () => handleDecrement(meal.id)
-                      }
-                      edge="end"
-                    >
-                      {meal.quantity === 1 ? (
-                        <DeleteIcon
-                          sx={{
-                            fontSize: "1rem",
-                            color: "secondary.contrastText",
-                          }}
-                        />
-                      ) : (
-                        <RemoveIcon
-                          sx={{
-                            fontSize: "1rem",
-                            color: "secondary.contrastText",
-                          }}
-                        />
-                      )}
-                    </IconButton>
-                    <IconButton
-                      onClick={() => handleAddToCart(meal.id)}
-                      edge="end"
-                    >
-                      <AddIcon
-                        sx={{
-                          fontSize: "1rem",
-                          color: "secondary.contrastText",
-                        }}
-                      />
-                    </IconButton>
-                  </Stack>
+                  <IconButton
+                    onClick={() => handleRemoveFromCart(meal.id)}
+                    edge="end"
+                  >
+                    <DeleteIcon
+                      sx={{
+                        fontSize: "1.5rem",
+                        color: "secondary.contrastText",
+                      }}
+                    />
+                  </IconButton>
                 }
                 sx={{ fontSize: { xs: "0.7rem" } }}
               >
                 <ListItemText
                   primary={meal.name}
-                  secondary={`${(meal.price * meal.quantity).toFixed(2)}$ ${
-                    meal.quantity
-                  }x`}
+                  secondary={
+                    <Box
+                      sx={{
+                        width: { xs: "75%", sm: "25%" },
+                        display: "flex",
+                        gap: "1rem",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Typography>
+                        {(meal.price * meal.quantity).toFixed(2)}$
+                      </Typography>
+                      <TextField
+                        sx={{ flexGrow: "1" }}
+                        slotProps={{
+                          input: { disableUnderline: true },
+                          htmlInput: {
+                            style: {
+                              padding: "0.3rem",
+                            },
+                          },
+                        }}
+                        type="number"
+                        variant="filled"
+                        size="small"
+                        defaultValue={meal.quantity}
+                      />
+                    </Box>
+                  }
                 ></ListItemText>
               </ListItem>
             );
