@@ -4,7 +4,7 @@ export interface CartContextInterface {
   cartState: CartMeal[];
   handleAddToCart: (id: string) => void;
   handleRemoveFromCart: (id: string) => void;
-  handleDecrement: (id: string) => void;
+  handleChangeQuantity: (id: string, newQuantity: number) => void;
   handleReset: () => void;
   modalStatus: boolean;
   handleShowModal: () => void;
@@ -14,7 +14,7 @@ const CartContext = createContext<CartContextInterface>({
   cartState: [],
   handleAddToCart: () => {},
   handleRemoveFromCart: () => {},
-  handleDecrement: () => {},
+  handleChangeQuantity: () => {},
   handleReset: () => {},
   modalStatus: false,
   handleShowModal: () => {},

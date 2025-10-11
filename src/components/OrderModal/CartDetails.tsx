@@ -25,7 +25,7 @@ interface CartDetailsProps {
   totalPrice: string;
   handleAddToCart: (id: string) => void;
   handleRemoveFromCart: (id: string) => void;
-  handleDecrement: (id: string) => void;
+  handleChangeQuantity: (id: string, newQuantity: number) => void;
   handleCloseModal: () => void;
 }
 export default function CartDetails({
@@ -35,6 +35,7 @@ export default function CartDetails({
   isLoading,
   totalPrice,
   handleRemoveFromCart,
+  handleChangeQuantity,
   handleCloseModal,
 }: CartDetailsProps) {
   if (error) {
@@ -83,6 +84,17 @@ export default function CartDetails({
                         {(meal.price * meal.quantity).toFixed(2)}$
                       </Typography>
                       <TextField
+                        onBlur={(e) => {
+                          const numberValue = Number(e.currentTarget.value);
+                          if (
+                            !e.currentTarget.value.length ||
+                            numberValue <= 0
+                          ) {
+                            e.currentTarget.value = meal.quantity.toString();
+                            return;
+                          }
+                          handleChangeQuantity(meal.id, numberValue);
+                        }}
                         sx={{ flexGrow: "1" }}
                         slotProps={{
                           input: { disableUnderline: true },

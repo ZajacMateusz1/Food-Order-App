@@ -12,25 +12,34 @@ export default function CartContextProvider({
   function handleAddToCart(id: string) {
     cartDispatch({
       type: "ADD",
-      payload: id,
+      payload: {
+        id,
+      },
     });
   }
   function handleRemoveFromCart(id: string) {
     cartDispatch({
       type: "REMOVE",
-      payload: id,
+      payload: {
+        id,
+      },
     });
   }
-  function handleDecrement(id: string) {
+  function handleChangeQuantity(id: string, newQuantity: number) {
     cartDispatch({
-      type: "DECREMENT",
-      payload: id,
+      type: "CHANGEQUANTITY",
+      payload: {
+        id,
+        newQuantity,
+      },
     });
   }
   function handleReset() {
     cartDispatch({
       type: "RESET",
-      payload: "",
+      payload: {
+        id: "",
+      },
     });
   }
   const [modalStatus, setmodalStatus] = useState<boolean>(false);
@@ -44,7 +53,7 @@ export default function CartContextProvider({
     cartState,
     handleAddToCart,
     handleRemoveFromCart,
-    handleDecrement,
+    handleChangeQuantity,
     handleReset,
     modalStatus,
     handleShowModal,

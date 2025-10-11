@@ -1,8 +1,11 @@
 import type { CartMeal } from "../types/types.ts";
-type ReducerActionType = "ADD" | "REMOVE" | "DECREMENT" | "RESET";
+type ReducerActionType = "ADD" | "REMOVE" | "CHANGEQUANTITY" | "RESET";
 export type ReducerAction = {
   type: ReducerActionType;
-  payload: string;
+  payload: {
+    id: string;
+    newQuantity?: number;
+  };
 };
 export function cartReducer(
   state: CartMeal[],
@@ -11,13 +14,13 @@ export function cartReducer(
   switch (action.type) {
     case "ADD": {
       const itemIndex = state.findIndex((meal) => {
-        return meal.id === action.payload;
+        return meal.id === action.payload.id;
       });
       if (itemIndex === -1) {
         return [
           ...state,
           {
-            id: action.payload,
+            id: action.payload.id,
             quantity: 1,
           },
         ];
@@ -30,15 +33,18 @@ export function cartReducer(
       return newState;
     }
     case "REMOVE": {
-      const newState = state.filter((meal) => meal.id !== action.payload);
+      const newState = state.filter((meal) => meal.id !== action.payload.id);
       return newState;
     }
-    case "DECREMENT": {
-      const itemIndex = state.findIndex((meal) => meal.id === action.payload);
+    case "CHANGEQUANTITY": {
+      if (!action.payload.newQuantity) return state;
+      const itemIndex = state.findIndex(
+        (meal) => meal.id === action.payload.id
+      );
       const newState = [...state];
       newState[itemIndex] = {
         ...newState[itemIndex],
-        quantity: newState[itemIndex].quantity - 1,
+        quantity: Number(action.payload.newQuantity),
       };
       return newState;
     }

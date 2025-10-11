@@ -20,7 +20,7 @@ export default function OrderModal() {
     cartState,
     handleAddToCart,
     handleRemoveFromCart,
-    handleDecrement,
+    handleChangeQuantity,
     handleReset,
     modalStatus,
     handleCloseModal,
@@ -52,7 +52,7 @@ export default function OrderModal() {
           totalPrice={totalPrice}
           handleAddToCart={handleAddToCart}
           handleRemoveFromCart={handleRemoveFromCart}
-          handleDecrement={handleDecrement}
+          handleChangeQuantity={handleChangeQuantity}
           handleCloseModal={handleCloseModal}
         />
       )}
