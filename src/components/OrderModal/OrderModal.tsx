@@ -54,6 +54,7 @@ export default function OrderModal() {
           handleAddToCart={handleAddToCart}
           handleRemoveFromCart={handleRemoveFromCart}
           handleChangeQuantity={handleChangeQuantity}
+          handleReset={handleReset}
           handleCloseModal={handleCloseModal}
         />
       )}
