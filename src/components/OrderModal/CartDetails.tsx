@@ -91,11 +91,13 @@ export default function CartDetails({
                     if (
                       !e.currentTarget.value.length ||
                       numberValue <= 0 ||
-                      numberValue === meal.quantity ||
-                      numberValue > 999
+                      numberValue === meal.quantity
                     ) {
                       e.currentTarget.value = meal.quantity.toString();
                       return;
+                    }
+                    if (numberValue > 999) {
+                      return handleChangeQuantity(meal.id, 999);
                     }
                     handleChangeQuantity(meal.id, numberValue);
                   }}
