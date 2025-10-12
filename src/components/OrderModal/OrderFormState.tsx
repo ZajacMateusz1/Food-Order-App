@@ -156,8 +156,10 @@ export default function OrderFormState({
         </form>
       </DialogContent>
       <DialogActions>
+        <Button variant="outlined" onClick={() => handleChangeStep("details")}>
+          Back
+        </Button>
         <Button onClick={handleCloseModal}>Cancel</Button>
-        <Button onClick={() => handleChangeStep("details")}>Back</Button>
         <Button variant="contained" type="submit" form="order-form">
           Submit
         </Button>

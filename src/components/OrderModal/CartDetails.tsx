@@ -13,8 +13,6 @@ import {
   ListItemText,
   IconButton,
   TextField,
-  Typography,
-  Box,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 interface CartDetailsProps {
@@ -69,59 +67,64 @@ export default function CartDetails({
                     />
                   </IconButton>
                 }
-                sx={{ fontSize: { xs: "0.7rem" } }}
+                sx={{
+                  fontSize: { xs: "0.7rem" },
+                  display: "grid",
+                  gridTemplateColumns: "repeat(12,1fr)",
+                  gridTemplateRowsL: "repeat(2,1fr)",
+                }}
               >
+                <ListItemText sx={{ gridColumn: "1/12", gridRow: "1/2" }}>
+                  {meal.name}
+                </ListItemText>
                 <ListItemText
-                  primary={meal.name}
-                  secondary={
-                    <Box
-                      sx={{
-                        width: { xs: "75%", sm: "25%" },
-                        display: "flex",
-                        gap: "1rem",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Typography>
-                        {(meal.price * meal.quantity).toFixed(2)}$
-                      </Typography>
-                      <TextField
-                        onBlur={(e) => {
-                          const numberValue = Number(e.currentTarget.value);
-                          if (
-                            !e.currentTarget.value.length ||
-                            numberValue <= 0
-                          ) {
-                            e.currentTarget.value = meal.quantity.toString();
-                            return;
-                          }
-                          handleChangeQuantity(meal.id, numberValue);
-                        }}
-                        sx={{ flexGrow: "1" }}
-                        slotProps={{
-                          input: { disableUnderline: true },
-                          htmlInput: {
-                            style: {
-                              padding: "0.3rem",
-                            },
-                          },
-                        }}
-                        type="number"
-                        variant="filled"
-                        size="small"
-                        defaultValue={meal.quantity}
-                      />
-                    </Box>
-                  }
-                ></ListItemText>
+                  sx={{
+                    gridColumn: { sm: "1/6", md: "1/3" },
+                    gridRow: "2/3",
+                  }}
+                >
+                  {(meal.price * meal.quantity).toFixed(2)}$
+                </ListItemText>
+                <TextField
+                  onBlur={(e) => {
+                    const numberValue = Number(e.currentTarget.value);
+                    if (
+                      !e.currentTarget.value.length ||
+                      numberValue <= 0 ||
+                      numberValue === meal.quantity ||
+                      numberValue > 999
+                    ) {
+                      e.currentTarget.value = meal.quantity.toString();
+                      return;
+                    }
+                    handleChangeQuantity(meal.id, numberValue);
+                  }}
+                  sx={{ gridColumn: { xs: "6/9", md: "3/5" }, gridRow: "2/3" }}
+                  slotProps={{
+                    input: { disableUnderline: true },
+                    htmlInput: {
+                      style: {
+                        padding: "0.3rem",
+                      },
+                    },
+                  }}
+                  type="number"
+                  variant="filled"
+                  size="small"
+                  defaultValue={meal.quantity}
+                />
               </ListItem>
             );
           })}
         </List>
       </DialogContent>
       <DialogActions>
+        {meals.length > 0 && (
+          <Button variant="outlined" onClick={handleReset}>
+            Clear
+          </Button>
+        )}
         <Button onClick={handleCloseModal}>Cancel</Button>
-        {meals.length > 0 && <Button onClick={handleReset}>Clear cart</Button>}
         <Button
           onClick={() => handleChangeStep("form")}
           variant="contained"
