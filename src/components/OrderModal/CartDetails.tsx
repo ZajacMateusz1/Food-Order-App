@@ -17,7 +17,7 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 interface CartDetailsProps {
   handleChangeStep: (nextStatus: StepType) => void;
-  meals: MealToShowInCartDetails[];
+  mealsInCart: MealToShowInCartDetails[];
   error: string;
   isLoading: boolean;
   totalPrice: string;
@@ -29,7 +29,7 @@ interface CartDetailsProps {
 }
 export default function CartDetails({
   handleChangeStep,
-  meals,
+  mealsInCart,
   error,
   isLoading,
   totalPrice,
@@ -50,7 +50,7 @@ export default function CartDetails({
           Total amount {totalPrice}$
         </DialogContentText>
         <List>
-          {meals.map((meal) => {
+          {mealsInCart.map((meal) => {
             return (
               <ListItem
                 key={meal.id}
@@ -71,7 +71,7 @@ export default function CartDetails({
                   fontSize: { xs: "0.7rem" },
                   display: "grid",
                   gridTemplateColumns: "repeat(12,1fr)",
-                  gridTemplateRowsL: "repeat(2,1fr)",
+                  gridTemplateRows: "repeat(2,1fr)",
                 }}
               >
                 <ListItemText sx={{ gridColumn: "1/12", gridRow: "1/2" }}>
@@ -101,7 +101,7 @@ export default function CartDetails({
                     }
                     handleChangeQuantity(meal.id, numberValue);
                   }}
-                  sx={{ gridColumn: { xs: "6/9", md: "3/5" }, gridRow: "2/3" }}
+                  sx={{ gridColumn: { xs: "7/10", md: "3/5" }, gridRow: "2/3" }}
                   slotProps={{
                     input: { disableUnderline: true },
                     htmlInput: {
@@ -121,7 +121,7 @@ export default function CartDetails({
         </List>
       </DialogContent>
       <DialogActions>
-        {meals.length > 0 && (
+        {mealsInCart.length > 0 && (
           <Button variant="outlined" onClick={handleReset}>
             Clear
           </Button>
@@ -130,7 +130,7 @@ export default function CartDetails({
         <Button
           onClick={() => handleChangeStep("form")}
           variant="contained"
-          disabled={meals.length === 0}
+          disabled={mealsInCart.length === 0}
         >
           Checkout
         </Button>

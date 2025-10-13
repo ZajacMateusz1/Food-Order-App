@@ -10,3 +10,8 @@ export interface CartMeal {
   quantity: number;
 }
 export interface MealToShowInCartDetails extends Meal, CartMeal {}
+
+export interface OrderData {
+  clientData: Record<string, string>;
+  cartData: MealToShowInCartDetails[];
+}

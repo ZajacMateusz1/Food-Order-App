@@ -1,6 +1,10 @@
 import useInput from "../../hooks/useInput.ts";
 import { isNotEmpty, isEmail, isValidZipCode } from "../../util/validation.ts";
 import type { StepType } from "./OrderModal.tsx";
+import type {
+  OrderData,
+  MealToShowInCartDetails,
+} from "../../../types/types.ts";
 import {
   DialogTitle,
   DialogContent,
@@ -15,8 +19,14 @@ interface OrderFormStateProps {
   totalPrice: string;
   handleCloseModal: () => void;
   handleReset: () => void;
+  sendOrder: (dataToPost: OrderData) => void;
+  orderIsPending: boolean;
+  mealsInCart: MealToShowInCartDetails[];
 }
 export default function OrderFormState({
+  sendOrder,
+  orderIsPending,
+  mealsInCart,
   handleChangeStep,
   totalPrice,
   handleCloseModal,
@@ -52,7 +62,7 @@ export default function OrderFormState({
     handleOnBlur: handleCityOnBlur,
     error: cityError,
   } = useInput(isNotEmpty);
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (nameError || emailError || streetError || zipCodeError || cityError) {
       return;
@@ -71,6 +81,16 @@ export default function OrderFormState({
       handleCityOnBlur();
       return;
     }
+    await sendOrder({
+      clientData: {
+        name: nameValue,
+        email: emailValue,
+        street: streetValue,
+        zipCode: zipCodeValue,
+        city: cityValue,
+      },
+      cartData: mealsInCart,
+    });
     handleChangeStep("thankYou");
     handleReset();
   }
@@ -160,7 +180,12 @@ export default function OrderFormState({
           Back
         </Button>
         <Button onClick={handleCloseModal}>Cancel</Button>
-        <Button variant="contained" type="submit" form="order-form">
+        <Button
+          variant="contained"
+          type="submit"
+          form="order-form"
+          disabled={orderIsPending}
+        >
           Submit
         </Button>
       </DialogActions>

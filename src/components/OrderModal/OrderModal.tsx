@@ -4,11 +4,14 @@ import useFetchPromiseAll from "../../hooks/useFetchPromiseAll.ts";
 import { fetchInCart } from "../../../http.ts";
 import CartDetails from "./CartDetails.tsx";
 import OrderFormState from "./OrderFormState.tsx";
+import { postOrder } from "../../../http.ts";
+import usePost from "../../hooks/usePost.ts";
 // import OrderFormAction from "./OrderFormAction.tsx";
 import ThankYou from "./ThankYou.tsx";
 import type {
   CartMeal,
   MealToShowInCartDetails,
+  OrderData,
 } from "../../../types/types.ts";
 import { Dialog } from "@mui/material";
 export type StepType = "details" | "form" | "thankYou";
@@ -27,7 +30,7 @@ export default function OrderModal() {
     handleCloseModal,
   } = use(CartContext);
   const {
-    data: meals,
+    data: mealsInCart,
     error,
     isLoading,
   } = useFetchPromiseAll<MealToShowInCartDetails[], CartMeal[]>(
@@ -35,19 +38,30 @@ export default function OrderModal() {
     cartState,
     []
   );
+  const {
+    sendData: sendOrder,
+    responseData: orderResponse,
+    error: orderError,
+    isPending: orderIsPending,
+  } = usePost(postOrder, {} as OrderData);
   const totalPrice: string = useMemo(() => {
-    const price: number = meals.reduce(
+    const price: number = mealsInCart.reduce(
       (acc, meal) => acc + meal.price * meal.quantity,
       0
     );
     return price.toFixed(2);
-  }, [meals]);
+  }, [mealsInCart]);
   return (
-    <Dialog open={modalStatus} fullWidth maxWidth="sm">
+    <Dialog
+      open={modalStatus}
+      fullWidth
+      maxWidth="sm"
+      container={document.getElementById("modal-root")!}
+    >
       {step === "details" && (
         <CartDetails
           handleChangeStep={handleChangeStep}
-          meals={meals}
+          mealsInCart={mealsInCart}
           error={error}
           isLoading={isLoading}
           totalPrice={totalPrice}
@@ -60,6 +74,9 @@ export default function OrderModal() {
       )}
       {step === "form" && (
         <OrderFormState
+          sendOrder={sendOrder}
+          orderIsPending={orderIsPending}
+          mealsInCart={mealsInCart}
           handleChangeStep={handleChangeStep}
           totalPrice={totalPrice}
           handleReset={handleReset}
@@ -68,6 +85,8 @@ export default function OrderModal() {
       )}
       {step === "thankYou" && (
         <ThankYou
+          orderResponse={orderResponse}
+          orderError={orderError}
           handleChangeStep={handleChangeStep}
           handleCloseModal={handleCloseModal}
         />
