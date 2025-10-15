@@ -45,7 +45,7 @@ export async function postOrder(dataToPost: OrderData) {
   if (!response.ok) {
     throw new Error("Can't send your order! Try again later.");
   }
-  const data = response.json();
+  const data = await response.json();
   return data;
 }
 export async function getOrders() {

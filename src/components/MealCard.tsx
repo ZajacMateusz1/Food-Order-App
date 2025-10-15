@@ -27,7 +27,12 @@ export default function MealCard({
         flexDirection: "column",
       }}
     >
-      <CardMedia component="img" src={image} sx={{ height: 180 }}></CardMedia>
+      <CardMedia
+        component="img"
+        src={image}
+        alt={name}
+        sx={{ height: 180 }}
+      ></CardMedia>
       <CardContent sx={{ flexGrow: 1 }}>
         <Typography gutterBottom variant="h5" sx={{ fontWeight: 500 }}>
           {name}
