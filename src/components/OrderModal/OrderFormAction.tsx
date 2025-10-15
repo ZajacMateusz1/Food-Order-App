@@ -28,7 +28,7 @@ export default function OrderFormAction({
   handleCloseModal,
   handleReset,
 }: OrderFormActionProps) {
-  function handleAction(prev: handleActionType, formData: FormData) {
+  function handleAction(_prev: handleActionType, formData: FormData) {
     const inputValues = Object.fromEntries(formData.entries());
     const formErrors: string[] = [];
     if (!isNotEmpty(inputValues.name as string)) {

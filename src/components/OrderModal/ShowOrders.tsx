@@ -22,19 +22,19 @@ export default function ShowOrders({ handleClose }: ShowOrdersProps) {
       field: "name",
       headerName: "Name",
       width: 130,
-      valueGetter: (value, orderData) => `${orderData.clientData.name}`,
+      valueGetter: (_value, orderData) => `${orderData.clientData.name}`,
     },
     {
       field: "email",
       headerName: "Email",
       width: 200,
-      valueGetter: (value, orderData) => `${orderData.clientData.email}`,
+      valueGetter: (_value, orderData) => `${orderData.clientData.email}`,
     },
     {
       field: "adress",
       headerName: "Adress",
       width: 250,
-      valueGetter: (value, orderData) =>
+      valueGetter: (_value, orderData) =>
         `${orderData.clientData.zipCode} ${orderData.clientData.city} ${orderData.clientData.street}`,
     },
     {
