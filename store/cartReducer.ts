@@ -1,3 +1,4 @@
+import { setToLocalStorage } from "../src/util/localStorage.ts";
 import type { CartMeal } from "../types/types.ts";
 type ReducerActionType = "ADD" | "REMOVE" | "CHANGEQUANTITY" | "RESET";
 export type ReducerAction = {
@@ -17,23 +18,27 @@ export function cartReducer(
         return meal.id === action.payload.id;
       });
       if (itemIndex === -1) {
-        return [
+        const newState = [
           ...state,
           {
             id: action.payload.id,
             quantity: 1,
           },
         ];
+        setToLocalStorage("cart", newState);
+        return newState;
       }
       const newState = [...state];
       newState[itemIndex] = {
         ...newState[itemIndex],
         quantity: newState[itemIndex].quantity + 1,
       };
+      setToLocalStorage("cart", newState);
       return newState;
     }
     case "REMOVE": {
       const newState = state.filter((meal) => meal.id !== action.payload.id);
+      setToLocalStorage("cart", newState);
       return newState;
     }
     case "CHANGEQUANTITY": {
@@ -46,9 +51,11 @@ export function cartReducer(
         ...newState[itemIndex],
         quantity: Number(action.payload.newQuantity),
       };
+      setToLocalStorage("cart", newState);
       return newState;
     }
     case "RESET":
+      setToLocalStorage("cart", []);
       return [];
   }
 }

@@ -2,13 +2,15 @@ import { useReducer, useState, type ReactNode } from "react";
 import CartContext from "./cart-context.tsx";
 import type { CartContextInterface } from "./cart-context.tsx";
 import { cartReducer } from "./cartReducer.ts";
+import { getFromLocalStorage } from "../src/util/localStorage.ts";
+const cartInitialValue = getFromLocalStorage("cart", []);
 interface CartContextProviderProps {
   children: ReactNode;
 }
 export default function CartContextProvider({
   children,
 }: CartContextProviderProps) {
-  const [cartState, cartDispatch] = useReducer(cartReducer, []);
+  const [cartState, cartDispatch] = useReducer(cartReducer, cartInitialValue);
   function handleAddToCart(id: string) {
     cartDispatch({
       type: "ADD",
