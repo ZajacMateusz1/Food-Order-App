@@ -90,6 +90,7 @@ export default function OrderFormState({
         city: cityValue,
       },
       cartData: mealsInCart,
+      totalPrice,
     });
     handleChangeStep("thankYou");
     handleReset();

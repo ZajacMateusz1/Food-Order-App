@@ -14,4 +14,5 @@ export interface MealToShowInCartDetails extends Meal, CartMeal {}
 export interface OrderData {
   clientData: Record<string, string>;
   cartData: MealToShowInCartDetails[];
+  totalPrice: string;
 }

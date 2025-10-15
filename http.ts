@@ -48,3 +48,13 @@ export async function postOrder(dataToPost: OrderData) {
   const data = response.json();
   return data;
 }
+export async function getOrders() {
+  const response = await fetch(
+    "https://68deea12898434f4135657cc.mockapi.io/foodorderapi/v1/orders"
+  );
+  if (!response.ok) {
+    throw new Error("Can't fetch data! Try again later.");
+  }
+  const data: OrderData[] = await response.json();
+  return data;
+}

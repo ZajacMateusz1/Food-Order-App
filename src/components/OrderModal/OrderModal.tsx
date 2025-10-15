@@ -14,7 +14,8 @@ import type {
   OrderData,
 } from "../../../types/types.ts";
 import { Dialog } from "@mui/material";
-export type StepType = "details" | "form" | "thankYou";
+import ShowOrders from "./ShowOrders.tsx";
+export type StepType = "details" | "form" | "thankYou" | "orders";
 export default function OrderModal() {
   const [step, setStep] = useState<StepType>("details");
   function handleChangeStep(newStatus: StepType) {
@@ -51,6 +52,10 @@ export default function OrderModal() {
     );
     return price.toFixed(2);
   }, [mealsInCart]);
+  function handleClose() {
+    handleCloseModal();
+    handleChangeStep("details");
+  }
   return (
     <Dialog
       open={modalStatus}
@@ -88,9 +93,10 @@ export default function OrderModal() {
           orderResponse={orderResponse}
           orderError={orderError}
           handleChangeStep={handleChangeStep}
-          handleCloseModal={handleCloseModal}
+          handleClose={handleClose}
         />
       )}
+      {step === "orders" && <ShowOrders handleClose={handleClose} />}
     </Dialog>
   );
 }

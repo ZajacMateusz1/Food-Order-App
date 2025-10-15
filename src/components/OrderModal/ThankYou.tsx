@@ -11,18 +11,14 @@ interface ThankYouProps {
   orderResponse: { id: string };
   orderError: string;
   handleChangeStep: (nextStatus: StepType) => void;
-  handleCloseModal: () => void;
+  handleClose: () => void;
 }
 export default function ThankYou({
   orderResponse,
   orderError,
   handleChangeStep,
-  handleCloseModal,
+  handleClose,
 }: ThankYouProps) {
-  function handleClose() {
-    handleCloseModal();
-    handleChangeStep("details");
-  }
   if (orderError) {
     return <ErrorInfo errorText={orderError}></ErrorInfo>;
   }
@@ -37,6 +33,9 @@ export default function ThankYou({
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Close</Button>
+        <Button onClick={() => handleChangeStep("orders")} variant="contained">
+          Show orders
+        </Button>
       </DialogActions>
     </>
   );
