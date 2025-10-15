@@ -17,6 +17,7 @@ export default function ShowOrders({ handleClose }: ShowOrdersProps) {
   if (error) return <ErrorInfo errorText={error}></ErrorInfo>;
   if (isLoading) return <Loading />;
   const columns: GridColDef[] = [
+    { field: "id", headerName: "ID", width: 130 },
     {
       field: "name",
       headerName: "Name",
